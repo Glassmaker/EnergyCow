@@ -18,7 +18,7 @@ public class ItemRedBullDrink extends ItemFood{
 
 	public ItemRedBullDrink(int id) 
 	{
-		super(id,0,0f, false);
+		super(id,0,100f, false);
 	this.setCreativeTab(CreativeTabs.tabFood);
 	this.setMaxStackSize(1);
 	this.setUnlocalizedName("itemBullDrinkCode");

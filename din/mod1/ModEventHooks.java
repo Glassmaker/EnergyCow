@@ -13,6 +13,7 @@ package din.mod1;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.DamageSource;
+import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.event.ForgeSubscribe;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 public class ModEventHooks {
@@ -37,4 +38,9 @@ public void onEntityUpdate(LivingUpdateEvent event) {
             ep.fallDistance = 0.0F;
     }
 }
+
+
+
+
+
 }

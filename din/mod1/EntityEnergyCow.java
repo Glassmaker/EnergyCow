@@ -15,10 +15,14 @@ import net.minecraft.entity.passive.EntityCow;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 
 public class EntityEnergyCow extends EntityAnimal {
-	 public EntityEnergyCow(World par1World)
+	
+	public final int fluidId = 3503;
+
+	public EntityEnergyCow(World par1World)
 	    {
 	        super(par1World);
 	        this.setSize(0.9F, 1.3F);
@@ -44,7 +48,7 @@ public class EntityEnergyCow extends EntityAnimal {
 	    protected void applyEntityAttributes()
 	    {
 	        super.applyEntityAttributes();
-	        this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setAttribute(10.0D);
+	        this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setAttribute(7.0D);
 	        this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setAttribute(0.20000000298023224D);
 	    }
 
@@ -107,15 +111,21 @@ public class EntityEnergyCow extends EntityAnimal {
 
 	        if (itemstack != null && itemstack.itemID == Item.bucketEmpty.itemID && !par1EntityPlayer.capabilities.isCreativeMode)
 	        {
+	            this.setDead();
+	            par1EntityPlayer.setFire(10);
 	            if (itemstack.stackSize-- == 1)
 	            {
-	                par1EntityPlayer.inventory.setInventorySlotContents(par1EntityPlayer.inventory.currentItem, new ItemStack(DinMod1.energyBullDrink));
+	                par1EntityPlayer.inventory.setInventorySlotContents(par1EntityPlayer.inventory.currentItem, new ItemStack(DinMod1.instance.eBucket));
+	                this.setDead();
+	                par1EntityPlayer.setFire(10);
 	            }
-	            else if (!par1EntityPlayer.inventory.addItemStackToInventory(new ItemStack(DinMod1.energyBullDrink)))
+	            else if (!par1EntityPlayer.inventory.addItemStackToInventory(new ItemStack(DinMod1.instance.eBucket)))
 	            {
-	                par1EntityPlayer.dropPlayerItem(new ItemStack(DinMod1.energyBullDrink.itemID, 1, 0));
+	                par1EntityPlayer.dropPlayerItem(new ItemStack(DinMod1.instance.eBucket.itemID, 1, 0));
+	                this.setDead();
+	                par1EntityPlayer.setFire(10);
 	            }
-
+	          
 	            return true;
 	        }
 	        else
@@ -123,13 +133,20 @@ public class EntityEnergyCow extends EntityAnimal {
 	            return super.interact(par1EntityPlayer);
 	        }
 	    }
+	    public boolean isBreedingItem(ItemStack par1ItemStack)
+	    {
+	        return par1ItemStack != null && par1ItemStack.itemID == DinMod1.steroids.itemID;
+	    }
 
+	    
+	    
+	    
 	    /**
 	     * This function is used when two same-species animals in 'love mode' breed to generate the new baby animal.
 	     */
-	    public EntityCow spawnBabyAnimal(EntityAgeable par1EntityAgeable)
+	    public EntityEnergyCow spawnBabyAnimal(EntityAgeable par1EntityAgeable)
 	    {
-	        return new EntityCow(this.worldObj);
+	        return new EntityEnergyCow(this.worldObj);
 	    }
 
 	    public EntityAgeable createChild(EntityAgeable par1EntityAgeable)
