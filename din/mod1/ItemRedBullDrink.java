@@ -16,23 +16,30 @@ import din.mod1.lib.Reference;
 
 public class ItemRedBullDrink extends ItemFood{
 
-	public ItemRedBullDrink(int id) 
-	{
-		super(id,0,100f, false);
-	this.setCreativeTab(CreativeTabs.tabFood);
-	this.setMaxStackSize(1);
-	this.setUnlocalizedName("itemBullDrinkCode");
-	}
-	 public ItemStack onEaten(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer)
-	    {
-	        super.onEaten(par1ItemStack, par2World, par3EntityPlayer);
-	        par3EntityPlayer.addPotionEffect(new PotionEffect(DinMod1.flightPotion.getId(), 6000, 2));
-	        return new ItemStack(Item.bucketEmpty);
-	    }
-	@Override
-	public boolean hasEffect(ItemStack par1ItemStack){
-		return true;
-	}
+    public ItemRedBullDrink(int id)
+    {
+        super(id, 4, 2.0F, false);
+        setHasSubtypes(true);
+        setMaxDamage(0);
+        this.setAlwaysEdible();
+        this.setCreativeTab(DinMod1.tabDin);
+        this.setUnlocalizedName("itemBullDrinkCode");
+    }
+
+    protected void onFoodEaten (ItemStack stack, World world, EntityPlayer player)
+    {
+        if (!world.isRemote)
+        {
+            int duration = 0;
+            PotionEffect potion;
+
+            potion = player.getActivePotionEffect(DinMod1.flightPotion);
+            if (potion != null)
+                duration = potion.duration;
+            player.addPotionEffect(new PotionEffect(DinMod1.flightPotion.id, duration + 300 * 20, 0));
+    
+        }
+    }
 	@Override
 	
 	  @SideOnly(Side.CLIENT)

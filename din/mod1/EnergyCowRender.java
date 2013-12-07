@@ -8,7 +8,7 @@ import net.minecraft.entity.passive.EntityCow;
 import net.minecraft.util.ResourceLocation;
 
 public class EnergyCowRender extends RenderCow {
-	 private static final ResourceLocation EcowTextures = new ResourceLocation("dinlearn", "textures/mob/energycow.png");
+	 private static final ResourceLocation EcowTextures = new ResourceLocation("energycow", "textures/mob/energycow.png");
 
 
 		public EnergyCowRender(ModelBase par1ModelBase, float par3) {

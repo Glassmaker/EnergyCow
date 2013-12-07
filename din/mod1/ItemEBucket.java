@@ -12,7 +12,7 @@ public class ItemEBucket extends ItemBucket {
 
 	public ItemEBucket(int par1, int par2) {
 		super(par1, par2);
-		this.setCreativeTab(CreativeTabs.tabMaterials);
+		this.setCreativeTab(DinMod1.tabDin);
 		this.setUnlocalizedName("ebucketUnlo");
 		
 		

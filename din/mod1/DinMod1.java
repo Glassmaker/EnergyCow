@@ -1,11 +1,14 @@
 package din.mod1;
 import java.awt.Color;
+import java.io.File;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.model.ModelCow;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityEggInfo;
 import net.minecraft.entity.EntityList;
@@ -17,6 +20,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.client.event.TextureStitchEvent;
+import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.ForgeSubscribe;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
@@ -49,7 +53,17 @@ public class DinMod1 {
 	@SidedProxy(clientSide = Reference.ClientP, serverSide = Reference.ServerP)
 	public static CommonProxy proxy;
 		
-
+	public void initConfiguration(FMLInitializationEvent event){
+		Configuration config = new Configuration(new File("config/EnergyCowMod.cfg"));
+		config.load();
+		
+		ItemIDClass.EBDID = config.get("Items", "Energy drink", 3502).getInt();
+		ItemIDClass.EBUID = config.get("Items", "Energy fluid Bucket", 3503).getInt();
+		ItemIDClass.fluID = config.get("Fluid- ONLY CHANGE IF I TELL YOU", "Energy_Fluid_dont_touch", 3504).getInt();
+		ItemIDClass.LSID = config.get("Items", "Lighning summoner", 3500).getInt();
+		ItemIDClass.STID = config.get("Items", "Steroids", 3501).getInt();
+		config.save();
+	}
 	
 		public static Item energyBullDrink;
 		
@@ -59,18 +73,20 @@ public class DinMod1 {
 	
 		public static Potion flightPotion;
 	
-		public final int fluidId = 3503;
-		public Item eBucket = new ItemEBucket(3505, fluidId);
+		public final int fluidId = ItemIDClass.fluID;
+		public Item eBucket = new ItemEBucket(ItemIDClass.EBUID, fluidId);
 		public Fluid eFluid;
 	
 		public Block eFluidBlock;
 	
-		
+		 public static CreativeTabs tabDin = new CreativeTabDin(
+                 CreativeTabs.getNextID(), Reference.MOD_NAME);
+
 	
 
 			@EventHandler
 			public void preInit(FMLPreInitializationEvent event) {
-    
+	
 					PotionStuff.preInit();
     
 
@@ -85,7 +101,7 @@ public class DinMod1 {
 					MobClass.init();
 					PotionStuff.init();
 					ItemClass.init();
-
+					this.initConfiguration(event);
     	eFluid = new Fluid("efluid").setBlockID(fluidId);
 
     	FluidRegistry.registerFluid(eFluid);
@@ -94,13 +110,26 @@ public class DinMod1 {
     	GameRegistry.registerBlock(eFluidBlock, "EnergyFluid");
     	eFluidBlock.setUnlocalizedName(eFluidBlock.getUnlocalizedName());
     	LanguageRegistry.addName(eFluidBlock, "Energy fluid");
-  
     
     	GameRegistry.registerItem(eBucket, "Energy Liquid bucket");
     	FluidContainerRegistry.registerFluidContainer(new FluidStack(eFluid, 1000), new ItemStack(eBucket), new ItemStack(Item.bucketEmpty));
     	LanguageRegistry.addName(eBucket, "§2Energy Liquid Bucket");
     	BucketHandler.INSTANCE.buckets.put(eFluidBlock, eBucket);
+    	
+    	
+    	
+    	
+    	
+    	
+    		//RECIPES
+    	GameRegistry.addRecipe(new ItemStack(DinMod1.steroids), 
+    			"ZYZ",
+    			"YXY", 
+    			"ZYZ",
+    	        'X', Item.appleGold, 'Y', Item.diamond , 'Z', Item.sugar);
+    	GameRegistry.addShapelessRecipe(new ItemStack(DinMod1.energyBullDrink), new ItemStack(DinMod1.instance.eBucket), new ItemStack(Item.redstone ), new ItemStack(Item.glowstone ));
     }
+			
 
 
    

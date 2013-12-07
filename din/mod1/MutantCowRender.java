@@ -1,4 +1,4 @@
-package din.mod1.proxy;
+package din.mod1;
 
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.entity.RenderCow;
@@ -7,7 +7,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.ResourceLocation;
 
 public class MutantCowRender extends RenderCow {
-	 private static final ResourceLocation McowTextures = new ResourceLocation("dinlearn", "textures/mob/mutantcow.png");
+	 private static final ResourceLocation McowTextures = new ResourceLocation("energycow", "textures/mob/mutantcow.png");
 
 
 		public MutantCowRender(ModelBase par1ModelBase, float par3) {

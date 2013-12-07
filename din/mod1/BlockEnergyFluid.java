@@ -24,7 +24,7 @@ public class BlockEnergyFluid extends BlockFluidClassic {
         public BlockEnergyFluid(int id, Fluid fluid, Material material) {
                 super(id, fluid, material);
                 setUnlocalizedName("eFluid");
-                setCreativeTab(CreativeTabs.tabMisc);
+                setCreativeTab(DinMod1.tabDin);
         }
         
         @Override

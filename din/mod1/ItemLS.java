@@ -10,7 +10,7 @@ import net.minecraft.world.World;
 public class ItemLS extends Item {
 	public ItemLS(int par1) {
 		super(par1);
-	this.setCreativeTab(CreativeTabs.tabCombat);
+	this.setCreativeTab(DinMod1.tabDin);
 	}
 
 	 public boolean onItemUse(ItemStack itemStack, EntityPlayer entity, World world, int i, int j, int k, int l, float a, float b, float c){

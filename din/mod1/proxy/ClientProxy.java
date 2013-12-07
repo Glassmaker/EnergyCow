@@ -5,6 +5,7 @@ import cpw.mods.fml.client.registry.RenderingRegistry;
 import din.mod1.EnergyCowRender;
 import din.mod1.EntityEnergyCow;
 import din.mod1.EntityMutantCow;
+import din.mod1.MutantCowRender;
 
 public class ClientProxy extends CommonProxy {
 	

@@ -18,7 +18,7 @@ public class ItemSteroids extends ItemFood{
 	public ItemSteroids(int id) 
 	{
 		super(id,1,1f, false);
-	this.setCreativeTab(CreativeTabs.tabFood);
+	this.setCreativeTab(DinMod1.tabDin);
 	this.setMaxStackSize(1);
 	this.setUnlocalizedName("itemSteroidsCode");
 	}
