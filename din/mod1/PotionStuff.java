@@ -8,7 +8,7 @@ import net.minecraft.potion.Potion;
 public class PotionStuff {
 
 	
-	public static void init (){
+	public static void preInit (){
 		
 		
 		Potion[] potionTypes = null;
@@ -31,5 +31,11 @@ public class PotionStuff {
     	System.err.println("That's weird. Must be a bug.Bugger.HA!GET IT?NO? Whatever, report it!");
     	System.err.println(e); 	}
     	}
+	}
+	
+	
+	public static void init (){
+    	DinMod1.flightPotion = (new PotionFlight(32, false, 0)).setIconIndex(0, 0).setPotionName("Flight");	
+	
 	}
 }

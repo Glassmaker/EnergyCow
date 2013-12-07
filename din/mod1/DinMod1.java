@@ -1,23 +1,8 @@
-/****
-	Din's mod #1 ( published )
-	Energy cow!
-	To do:
-	Clean the code up
-	Extra cows and better breeding
-	Good spawning method
-	Clean the code up again
-	Lightning rod texture and model
-	Better textures!
-	Energy drink recipe
-	And moooooore!
-***/
 package din.mod1;
-
 import java.awt.Color;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.model.ModelCow;
@@ -55,84 +40,58 @@ import cpw.mods.fml.common.registry.LanguageRegistry;
 import din.mod1.proxy.CommonProxy;
 import din.mod1.lib.Reference;
 
-
 @Mod(modid = Reference.MOD_ID, name = Reference.MOD_NAME, version = Reference.VERSION)
 @NetworkMod(clientSideRequired = true)
 
-/* Din's reminder Thing #1
- * Public static Item : Per class
- * Public Item : Everywhere ( per instance )
- * 
- * Referencing NOT static ones : MainClass.instance.firhlga
- * */
 public class DinMod1 {
-	
-	static int startEntityId = 300;
-	
 	@Instance(Reference.MOD_ID)
-	
 	public static DinMod1 instance;
-	
-	public static Item energyBullDrink;
-	
-	public static Item steroids;
-	
-	public static Item LSummoner;
-	
-	public static Potion flightPotion;
-	
-	public final int fluidId = 3503;
-	public Item eBucket = new ItemEBucket(3505, fluidId);
-	public Fluid eFluid;
-	
-	public Block eFluidBlock;
-	
 	@SidedProxy(clientSide = Reference.ClientP, serverSide = Reference.ServerP)
-	
 	public static CommonProxy proxy;
+		
+
+	
+		public static Item energyBullDrink;
+		
+		public static Item steroids;
+	
+		public static Item LSummoner;
+	
+		public static Potion flightPotion;
+	
+		public final int fluidId = 3503;
+		public Item eBucket = new ItemEBucket(3505, fluidId);
+		public Fluid eFluid;
+	
+		public Block eFluidBlock;
+	
+		
 	
 
-    @EventHandler
+			@EventHandler
+			public void preInit(FMLPreInitializationEvent event) {
     
-    public void preInit(FMLPreInitializationEvent event) {
-    
-    	PotionStuff.init();
+					PotionStuff.preInit();
     
 
-    	MinecraftForge.EVENT_BUS.register(new ModEventHooks());
-    	MinecraftForge.EVENT_BUS.register(BucketHandler.INSTANCE);
+					MinecraftForge.EVENT_BUS.register(new ModEventHooks());
+					MinecraftForge.EVENT_BUS.register(BucketHandler.INSTANCE);
     
     } 	
     
     
-    @EventHandler
-    public void init(FMLInitializationEvent event) {
-    	 
-    	energyBullDrink = (new ItemRedBullDrink(3500));
-    	
-    	LanguageRegistry.addName(energyBullDrink, "§6Energy drink");
-    	
-    	steroids = (new ItemSteroids(3501));
-    	
-    	LanguageRegistry.addName(steroids, "§1Steroids");
+			@EventHandler
+			public void init(FMLInitializationEvent event) {
+					MobClass.init();
+					PotionStuff.init();
+					ItemClass.init();
+	
 
-    	LSummoner = (new ItemLS(3502));
-    	
-    	LanguageRegistry.addName(LSummoner, "§4Lightning summoner");
 
-//Don't touch the mob//
-    	EntityRegistry.registerModEntity(EntityEnergyCow.class, "Energy Cow", 2, this, 80, 5, true);
-     	LanguageRegistry.instance().addStringLocalization("entity.EnergyCow.Energy Cow.name", "Energy Cow");
-     	 registerEntityEgg(EntityEnergyCow.class, 0x3E3123, 0x800000);																					
-    	proxy.registerRenderer();
-    	flightPotion = (new PotionFlight(32, false, 0)).setIconIndex(0, 0).setPotionName("Flight");
+    									
     	
-    	GameRegistry.addRecipe(new ItemStack(steroids), new Object[]{
-            "ZCZ",
-            "CXC",
-            "ZCZ",
-            'X', Item.appleGold, 'C', Item.sugar, 'Z', Item.magmaCream});
-    	//You can touch now
+    	
+    
     	
     	eFluid = new Fluid("efluid").setBlockID(fluidId);
 
@@ -149,25 +108,7 @@ public class DinMod1 {
     	LanguageRegistry.addName(eBucket, "§2Energy Liquid Bucket");
     	BucketHandler.INSTANCE.buckets.put(eFluidBlock, eBucket);
     }
-    //Don't touch
-    public static void registerEntityEgg(Class<? extends Entity> entity, int primaryColor, int secondaryColor) 
-    {
-    int id = getUniqueEntityId();
-    EntityList.IDtoClassMapping.put(id, entity);
-    EntityList.entityEggs.put(id, new EntityEggInfo(id, primaryColor, secondaryColor));
-    }
-    
-    public static int getUniqueEntityId() 
-    {
-    do 
-    {
-    startEntityId++;
-    } 
-    while (EntityList.getStringFromID(startEntityId) != null);
 
-    return startEntityId;
-    }
-   //You can touch under 
 
    
     @EventHandler
