@@ -29,3 +29,9 @@ AsieLauncher
 
 
 
+Credits
+Din - Me
+Glassmaker - Cow textures. Love em <3
+pillbox - Help with potion code
+
+
