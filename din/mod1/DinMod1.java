@@ -85,14 +85,7 @@ public class DinMod1 {
 					MobClass.init();
 					PotionStuff.init();
 					ItemClass.init();
-	
 
-
-    									
-    	
-    	
-    
-    	
     	eFluid = new Fluid("efluid").setBlockID(fluidId);
 
     	FluidRegistry.registerFluid(eFluid);

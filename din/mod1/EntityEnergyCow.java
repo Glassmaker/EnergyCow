@@ -113,17 +113,24 @@ public class EntityEnergyCow extends EntityAnimal {
 	        {
 	            this.setDead();
 	            par1EntityPlayer.setFire(10);
+	            worldObj.spawnParticle("largeexplode", posX, posY + (double)(height / 2.0F), posZ, 0.0D, 0.0D, 0.0D);
+	            this.playSound("random.fizz", 5.0F, 5.5F);
 	            if (itemstack.stackSize-- == 1)
 	            {
 	                par1EntityPlayer.inventory.setInventorySlotContents(par1EntityPlayer.inventory.currentItem, new ItemStack(DinMod1.instance.eBucket));
 	                this.setDead();
 	                par1EntityPlayer.setFire(10);
+	                worldObj.spawnParticle("largeexplode", posX, posY + (double)(height / 2.0F), posZ, 0.0D, 0.0D, 0.0D);
+	                this.playSound("random.fizz", 5.0F, 5.5F);
 	            }
 	            else if (!par1EntityPlayer.inventory.addItemStackToInventory(new ItemStack(DinMod1.instance.eBucket)))
 	            {
 	                par1EntityPlayer.dropPlayerItem(new ItemStack(DinMod1.instance.eBucket.itemID, 1, 0));
 	                this.setDead();
 	                par1EntityPlayer.setFire(10);
+	                worldObj.spawnParticle("largeexplode", posX, posY + (double)(height / 2.0F), posZ, 0.0D, 0.0D, 0.0D);
+	                this.playSound("random.fizz", 5.0F, 5.5F);
+	        
 	            }
 	          
 	            return true;
